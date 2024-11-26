@@ -17,7 +17,7 @@ int main() {
 	pid_t p1, p2;
 	((p1 = fork()) && (p2 = fork()));
 
-	if (p1 < 0) {
+	if (p1 < 0 || p2 < 0) {
 		perror("fork failed");
 		exit(1);
 	} else if (p1 == 0 || p2 == 0) {
@@ -35,7 +35,7 @@ int main() {
 		if (getppid() == 1) {
 			printf("\n");
 		}
-		printf("%d finished after %d seconds %d \n", getpid(), r, getppid());
+		printf("%d finished after %d seconds\n", getpid(), r);
 		exit(r);
 	} else {
 		int status;
