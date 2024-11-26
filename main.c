@@ -15,8 +15,7 @@ int main() {
 	printf("%d about to create 2 child processes\n", getpid());
 
 	pid_t p1, p2;
-	p1 = fork();
-	p2 = fork();
+	((p1 = fork()) && (p2 = fork()));
 
 	if (p1 < 0) {
 		perror("fork failed");
@@ -33,7 +32,10 @@ int main() {
 		r = r % 5 + 1;
 		printf("%d %dsec\n", getpid(), r);
 		sleep(r);
-		printf("%d finished after %d seconds\n", getpid(), r);
+		if (getppid() == 1) {
+			printf("\n");
+		}
+		printf("%d finished after %d seconds %d \n", getpid(), r, getppid());
 		exit(r);
 	} else {
 		int status;
