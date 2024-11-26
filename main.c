@@ -18,7 +18,7 @@ int main() {
 	((p1 = fork()) && (p2 = fork()));
 
 	if (p1 < 0 || p2 < 0) {
-		perror("fork failed");
+		perror("fork failed\n");
 		exit(1);
 	} else if (p1 == 0 || p2 == 0) {
 		int r;
@@ -32,7 +32,9 @@ int main() {
 		r = r % 5 + 1;
 		printf("%d %dsec\n", getpid(), r);
 		sleep(r);
-		if (getppid() == 1) {
+		int parent = getppid();
+		//printf("%d\n", parent);
+		if (parent == 101124) {
 			printf("\n");
 		}
 		printf("%d finished after %d seconds\n", getpid(), r);
